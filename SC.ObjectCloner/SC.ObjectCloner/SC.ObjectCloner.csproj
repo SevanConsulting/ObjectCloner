@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <Authors>Marc Evans</Authors>
+    <Company>Sevan Consulting Ltd</Company>
+    <Product>ObjectCloner</Product>
+    <Description>A reflection based, configurable deep object cloner that can selectively modify objects during the clone operation.</Description>
+    <Copyright>©2018 Sevan Consulting Ltd</Copyright>
+    <PackageLicenseUrl>https://opensource.org/licenses/MIT</PackageLicenseUrl>
+    <PackageTags>Reflection Clone ICloneable</PackageTags>
+    <PackageReleaseNotes />
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>bin\Debug\SC.ObjectCloner.xml</DocumentationFile>
+    <OutputPath>bin\Debug</OutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>bin\Release\SC.ObjectCloner.xml</DocumentationFile>
+    <OutputPath>bin\Release</OutputPath>
+  </PropertyGroup>
+
+</Project>

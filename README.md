@@ -5,24 +5,26 @@ The C# [ICloneable](https://docs.microsoft.com/en-us/dotnet/api/system.icloneabl
 
 # Installation
 
-Grab the code, build the project and reference it. When I get around to it, there'll be a Nuget. Probably. 
+Install via Nuget: `Install-Package SC.ObjectCloner -Version 1.0.0`
 
 # Usage
 
 ### Simple deep clone
-
-    var sourceObject = new Person(){...}
-    var cloner = ObjectCloneFactory.CreateCloner(sourceObject);
-    var clonedObject = cloner.Clone();
+```csharp
+var sourceObject = new Person(){...}
+var cloner = ObjectCloneFactory.CreateCloner(sourceObject);
+var clonedObject = cloner.Clone();
+```
 	
 ### Skip cloning Id properties
 A common pattern is to assign Id properties during object creation. Usually you'd want copies of these objects to have new IDs, not copies of the original ones. This will use the default value for any property called *"Id"* wherever it occurs in the object structure:
 
-    var sourceObject = new Person(){...}
-    var cloner = ObjectCloneFactory.CreateCloner(sourceObject);
-    cloner.SelectProperties(p => p.Info.Name == "Id").KeepDefaultValue();
-    var clonedObject = cloner.Clone();
-
+```csharp
+var sourceObject = new Person(){...}
+var cloner = ObjectCloneFactory.CreateCloner(sourceObject);
+cloner.SelectProperties(p => p.Info.Name == "Id").KeepDefaultValue();
+var clonedObject = cloner.Clone();
+```
 
 ### Multiple operations
 
@@ -31,11 +33,13 @@ Clone a `Person` object and...
 - Prepend *"Copy of "* to the value of the property called *"Name"*
 - Use the existing object reference of the *Address* property from the source, instead of cloning a new identical address
 
-        var cloner = ObjectCloneFactory.CreateCloner(sourceObject);
-        cloner.SelectProperty(c => c.Id).KeepDefaultValue();
-        cloner.SelectProperty(c => c.Name).Amend(srcVal => "Copy of "+srcVal.PropertyValue);
-        cloner.SelectProperty(c => c.CurrentAddress).UseExistingReference();
-        var clonedObject = cloner.Clone();
+```csharp
+    var cloner = ObjectCloneFactory.CreateCloner(sourceObject);
+    cloner.SelectProperty(c => c.Id).KeepDefaultValue();
+    cloner.SelectProperty(c => c.Name).Amend(srcVal => "Copy of "+srcVal.PropertyValue);
+    cloner.SelectProperty(c => c.CurrentAddress).UseExistingReference();
+    var clonedObject = cloner.Clone();
+```
 
 # Known Issues
 - Self referential structures (lists containing items that reference the parent list) are not copied. They are detected and an exception is thrown which is (slightly) better than letting it recurse into a stack overflow.
